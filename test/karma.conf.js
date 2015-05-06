@@ -29,6 +29,7 @@ module.exports = function(config) {
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-ui-select/dist/select.js',
       'bower_components/jquery.maskedinput/dist/jquery.maskedinput.js',
+      'bower_components/ngmap/build/scripts/ng-map.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

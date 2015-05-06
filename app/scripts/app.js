@@ -15,191 +15,200 @@ angular
     'ui.select',
     'ui.router',
     'angularMoment',
-    'formio'
+    'formio',
+    'ngMap'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', 'FormioProvider', function ($stateProvider, $urlRouterProvider, FormioProvider) {
-    FormioProvider.setBaseUrl('http://localhost:3000/app/api');
-    $stateProvider
-      .state('home', {
-        url: '/?',
-        templateUrl: 'views/main.html'
-      })
-      .state('auth', {
-        abstract: true,
-        url: '/auth',
-        templateUrl: 'views/user/auth.html'
-      })
-      .state('auth.login', {
-        url: '/login',
-        parent: 'auth',
-        templateUrl: 'views/user/login.html',
-        controller: ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
-          $scope.$on('formSubmission', function(err, submission) {
-            if (!submission) { return; }
-            $rootScope.user = submission;
-            $state.go('home');
-          });
-        }]
-      })
-      .state('auth.register', {
-        url: '/register',
-        parent: 'auth',
-        templateUrl: 'views/user/register.html',
-        controller: ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
-          $scope.$on('formSubmission', function(err, submission) {
-            if (!submission) { return; }
-            $rootScope.user = submission;
-            $state.go('home');
-          });
-        }]
-      })
-      .state('movieIndex', {
-        url: '/movie',
-        templateUrl: 'views/movie/index.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('submissionView', function(event, submission) {
-            $state.go('movie.view', {
-              movieId: submission._id
+  .config([
+    '$stateProvider',
+    '$urlRouterProvider',
+    'FormioProvider',
+    function ($stateProvider, $urlRouterProvider, FormioProvider) {
+      FormioProvider.setBaseUrl('http://localhost:3000/app/api');
+      $stateProvider
+        .state('home', {
+          url: '/?',
+          templateUrl: 'views/main.html'
+        })
+        .state('auth', {
+          abstract: true,
+          url: '/auth',
+          templateUrl: 'views/user/auth.html'
+        })
+        .state('auth.login', {
+          url: '/login',
+          parent: 'auth',
+          templateUrl: 'views/user/login.html',
+          controller: ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+            $scope.$on('formSubmission', function(err, submission) {
+              if (!submission) { return; }
+              $rootScope.user = submission;
+              $state.go('home');
             });
-          });
+          }]
+        })
+        .state('auth.register', {
+          url: '/register',
+          parent: 'auth',
+          templateUrl: 'views/user/register.html',
+          controller: ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+            $scope.$on('formSubmission', function(err, submission) {
+              if (!submission) { return; }
+              $rootScope.user = submission;
+              $state.go('home');
+            });
+          }]
+        })
+        .state('movieIndex', {
+          url: '/movie',
+          templateUrl: 'views/movie/index.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('submissionView', function(event, submission) {
+              $state.go('movie.view', {
+                movieId: submission._id
+              });
+            });
 
-          $scope.$on('submissionEdit', function(event, submission) {
-            $state.go('movie.edit', {
-              movieId: submission._id
+            $scope.$on('submissionEdit', function(event, submission) {
+              $state.go('movie.edit', {
+                movieId: submission._id
+              });
             });
-          });
 
-          $scope.$on('submissionDelete', function(event, submission) {
-            $state.go('movie.delete', {
-              movieId: submission._id
+            $scope.$on('submissionDelete', function(event, submission) {
+              $state.go('movie.delete', {
+                movieId: submission._id
+              });
             });
-          });
-        }]
-      })
-      .state('createMovie', {
-        url: '/create/movie',
-        templateUrl: 'views/movie/create.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('formSubmission', function(event, submission) {
-            $state.go('movie.view', {movieId: submission._id});
-          });
-        }]
-      })
-      .state('movie', {
-        abstract: true,
-        url: '/movie/:movieId',
-        templateUrl: 'views/movie/movie.html',
-        controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
-          $scope.movieUrl = $scope.movieForm + '/submission/' + $stateParams.movieId;
-        }]
-      })
-      .state('movie.view', {
-        url: '/',
-        parent: 'movie',
-        templateUrl: 'views/movie/view.html',
-        controller: ['$scope', '$stateParams', 'Formio', function ($scope, $stateParams, Formio) {
-          var loader = new Formio($scope.movieForm + '/submission/' + $stateParams.movieId);
-          $scope.movie = {};
-          loader.loadSubmission().then(function(submission) {
-            $scope.movie = submission;
-          });
-        }]
-      })
-      .state('movie.edit', {
-        url: '/edit',
-        parent: 'movie',
-        templateUrl: 'views/movie/edit.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('formSubmission', function(event, submission) {
-            $state.go('movie.view', {movieId: submission._id});
-          });
-        }]
-      })
-      .state('movie.delete', {
-        url: '/delete',
-        parent: 'movie',
-        templateUrl: 'views/movie/delete.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('delete', function() {
-            $state.go('movieIndex');
-          });
-        }]
-      })
-      .state('directorIndex', {
-        url: '/director',
-        templateUrl: 'views/director/index.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('submissionView', function(event, submission) {
-            $state.go('director.view', {
-              directorId: submission._id
+          }]
+        })
+        .state('createMovie', {
+          url: '/create/movie',
+          templateUrl: 'views/movie/create.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('formSubmission', function(event, submission) {
+              $state.go('movie.view', {movieId: submission._id});
             });
-          });
+          }]
+        })
+        .state('movie', {
+          abstract: true,
+          url: '/movie/:movieId',
+          templateUrl: 'views/movie/movie.html',
+          controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
+            $scope.movieUrl = $scope.movieForm + '/submission/' + $stateParams.movieId;
+          }]
+        })
+        .state('movie.view', {
+          url: '/',
+          parent: 'movie',
+          templateUrl: 'views/movie/view.html',
+          controller: ['$scope', '$stateParams', 'Formio', function ($scope, $stateParams, Formio) {
+            var loader = new Formio($scope.movieForm + '/submission/' + $stateParams.movieId);
+            $scope.movie = {};
+            loader.loadSubmission().then(function(submission) {
+              $scope.movie = submission;
+            });
+          }]
+        })
+        .state('movie.edit', {
+          url: '/edit',
+          parent: 'movie',
+          templateUrl: 'views/movie/edit.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('formSubmission', function(event, submission) {
+              $state.go('movie.view', {movieId: submission._id});
+            });
+          }]
+        })
+        .state('movie.delete', {
+          url: '/delete',
+          parent: 'movie',
+          templateUrl: 'views/movie/delete.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('delete', function() {
+              $state.go('movieIndex');
+            });
+          }]
+        })
+        .state('directorIndex', {
+          url: '/director',
+          templateUrl: 'views/director/index.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('submissionView', function(event, submission) {
+              $state.go('director.view', {
+                directorId: submission._id
+              });
+            });
 
-          $scope.$on('submissionEdit', function(event, submission) {
-            $state.go('director.edit', {
-              directorId: submission._id
+            $scope.$on('submissionEdit', function(event, submission) {
+              $state.go('director.edit', {
+                directorId: submission._id
+              });
             });
-          });
 
-          $scope.$on('submissionDelete', function(event, submission) {
-            $state.go('director.delete', {
-              directorId: submission._id
+            $scope.$on('submissionDelete', function(event, submission) {
+              $state.go('director.delete', {
+                directorId: submission._id
+              });
             });
-          });
-        }]
-      })
-      .state('createDirector', {
-        url: '/create/director',
-        templateUrl: 'views/director/create.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('formSubmission', function(event, submission) {
-            $state.go('director.view', {directorId: submission._id});
-          });
-        }]
-      })
-      .state('director', {
-        abstract: true,
-        url: '/director/:directorId',
-        templateUrl: 'views/director/director.html',
-        controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
-          $scope.directorUrl = $scope.directorForm + '/submission/' + $stateParams.directorId;
-        }]
-      })
-      .state('director.view', {
-        url: '/',
-        parent: 'director',
-        templateUrl: 'views/director/view.html',
-        controller: ['$scope', '$stateParams', 'Formio', function ($scope, $stateParams, Formio) {
-          var loader = new Formio($scope.directorForm + '/submission/' + $stateParams.directorId);
-          $scope.director = {};
-          loader.loadSubmission().then(function(submission) {
-            $scope.director = submission;
-          });
-        }]
-      })
-      .state('director.edit', {
-        url: '/edit',
-        parent: 'director',
-        templateUrl: 'views/director/edit.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('formSubmission', function(event, submission) {
-            $state.go('director.view', {directorId: submission._id});
-          });
-        }]
-      })
-      .state('director.delete', {
-        url: '/delete',
-        parent: 'director',
-        templateUrl: 'views/director/delete.html',
-        controller: ['$scope', '$state', function ($scope, $state) {
-          $scope.$on('delete', function() {
-            $state.go('directorIndex');
-          });
-        }]
-      });;
+          }]
+        })
+        .state('createDirector', {
+          url: '/create/director',
+          templateUrl: 'views/director/create.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('formSubmission', function(event, submission) {
+              $state.go('director.view', {directorId: submission._id});
+            });
+          }]
+        })
+        .state('director', {
+          abstract: true,
+          url: '/director/:directorId',
+          templateUrl: 'views/director/director.html',
+          controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
+            $scope.directorUrl = $scope.directorForm + '/submission/' + $stateParams.directorId;
+          }]
+        })
+        .state('director.view', {
+          url: '/',
+          parent: 'director',
+          templateUrl: 'views/director/view.html',
+          controller: ['$scope', '$stateParams', 'Formio', function ($scope, $stateParams, Formio) {
+            var loader = new Formio($scope.directorForm + '/submission/' + $stateParams.directorId);
+            $scope.director = {};
+            $scope.position = {lat: '40.74', lng: '-74.18'};
+            loader.loadSubmission().then(function(submission) {
+              $scope.position.lat = submission.data.address.geometry.location.lat;
+              $scope.position.lng = submission.data.address.geometry.location.lng;
+              $scope.director = submission;
+            });
+          }]
+        })
+        .state('director.edit', {
+          url: '/edit',
+          parent: 'director',
+          templateUrl: 'views/director/edit.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('formSubmission', function(event, submission) {
+              $state.go('director.view', {directorId: submission._id});
+            });
+          }]
+        })
+        .state('director.delete', {
+          url: '/delete',
+          parent: 'director',
+          templateUrl: 'views/director/delete.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.$on('delete', function() {
+              $state.go('directorIndex');
+            });
+          }]
+        });
 
-      $urlRouterProvider.otherwise('/');
-  }])
+        $urlRouterProvider.otherwise('/');
+    }
+  ])
   .run(['$state', '$rootScope',  'Formio', function($state, $rootScope, Formio) {
     $rootScope.userLoginForm = 'http://movieapp.localhost:3000/app/api/user/login';
     $rootScope.userRegisterForm = 'http://movieapp.localhost:3000/app/api/user/register';

@@ -1,2 +1,6 @@
 <h3>{{ director.data.name }}</h3>
+<p><strong>Address: </strong> {{ director.data.address.formatted_address }}</p>
+<map zoom="8" center="[{{ position.lat }}, {{ position.lng }}]">
+    <marker position="[{{ position.lat }}, {{ position.lng }}]" title="{{ director.data.address.formatted_address }}" visible="true"></marker>
+</map>
 <p>{{ director.data.phoneNumber }}</p>
