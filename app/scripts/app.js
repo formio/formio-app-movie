@@ -210,10 +210,10 @@ angular
     }
   ])
   .run(['$state', '$rootScope',  'Formio', function($state, $rootScope, Formio) {
-    $rootScope.userLoginForm = 'http://movieapp.localhost:3000/app/api/user/login';
-    $rootScope.userRegisterForm = 'http://movieapp.localhost:3000/app/api/user/register';
-    $rootScope.movieForm = 'http://movieapp.localhost:3000/app/api/movie';
-    $rootScope.directorForm = 'http://movieapp.localhost:3000/app/api/director';
+    $rootScope.userLoginForm = 'https://movieapp.form.io/app/api/user/login';
+    $rootScope.userRegisterForm = 'https://movieapp.form.io/app/api/user/register';
+    $rootScope.movieForm = 'https://movieapp.form.io/app/api/movie';
+    $rootScope.directorForm = 'https://movieapp.form.io/app/api/director';
 
     // Set the current user if it isn't provided.
     if (!$rootScope.user) {

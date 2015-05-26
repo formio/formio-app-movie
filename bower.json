@@ -2,15 +2,11 @@
   "name": "movieapp",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.3.0",
+    "formio": "^0.0.8",
     "bootstrap-sass-official": "^3.2.0",
     "angular-animate": "^1.3.0",
-    "angular-sanitize": "^1.3.0",
     "angular-ui-router": "~0.2.14",
-    "angular-moment": "~0.10.1",
-    "angular-ui-select": "~0.11.2",
     "font-awesome": "~4.3.0",
-    "jquery.maskedinput": "~1.4.1",
     "ngmap": "~1.7.9"
   },
   "devDependencies": {
