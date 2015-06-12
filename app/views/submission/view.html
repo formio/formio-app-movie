@@ -1,0 +1,10 @@
+<h3>{{ submission.data.fullName }}</h3>
+<p>{{ submission.data.email }}</p>
+<p>{{ submission.data.phoneNumber }}</p>
+<strong>Doctor(s): </strong>
+<ul><li ng-repeat="doctor in submission.data.doctor">{{ doctor.data.fullName }}</li></ul>
+<p><strong>Address: </strong> {{ submission.data.address.formatted_address }}</p>
+<p><img src="{{ submission.data.signature }}"></img></p>
+<map zoom="8" center="[{{ position.lat }}, {{ position.lng }}]">
+    <marker position="[{{ position.lat }}, {{ position.lng }}]" title="{{ submission.data.address.formatted_address }}" visible="true"></marker>
+</map>
