@@ -2,7 +2,7 @@
   "name": "movieapp",
   "version": "0.0.0",
   "dependencies": {
-    "formio": "^0.0.18",
+    "formio": "~0.0.19",
     "bootstrap-sass-official": "^3.2.0",
     "angular-animate": "^1.3.0",
     "angular-ui-router": "~0.2.14",
