@@ -23,7 +23,7 @@ angular
     '$urlRouterProvider',
     'FormioProvider',
     function ($stateProvider, $urlRouterProvider, FormioProvider) {
-      FormioProvider.setBaseUrl('http://localhost:3000/app/api');
+      FormioProvider.setBaseUrl('https://form.io/app/api');
       $stateProvider
         .state('home', {
           url: '/?',
