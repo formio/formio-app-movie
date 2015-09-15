@@ -1,5 +1,11 @@
 'use strict';
 
+// Change this to your application URL.
+var movieAppAPI = 'https://movieapp.form.io';
+
+// The Form.IO base API.
+var formioBaseUrl = 'https://api.form.io';
+
 /**
  * @ngdoc overview
  * @name movieappApp
@@ -23,7 +29,7 @@ angular
     '$urlRouterProvider',
     'FormioProvider',
     function ($stateProvider, $urlRouterProvider, FormioProvider) {
-      FormioProvider.setBaseUrl('https://form.io/app/api');
+      FormioProvider.setBaseUrl(formioBaseUrl);
       $stateProvider
         .state('home', {
           url: '/?',
@@ -209,41 +215,61 @@ angular
         $urlRouterProvider.otherwise('/');
     }
   ])
-  .run(['$state', '$rootScope',  'Formio', function($state, $rootScope, Formio) {
-    $rootScope.userLoginForm = 'https://movieapp.form.io/app/api/user/login';
-    $rootScope.userRegisterForm = 'https://movieapp.form.io/app/api/user/register';
-    $rootScope.movieForm = 'https://movieapp.form.io/app/api/movie';
-    $rootScope.directorForm = 'https://movieapp.form.io/app/api/director';
+  .run([
+    '$state',
+    '$rootScope',
+    'Formio',
+    function(
+      $state,
+      $rootScope,
+      Formio
+    ) {
+      $rootScope.userLoginForm = movieAppAPI + '/user/login';
+      $rootScope.userRegisterForm = movieAppAPI + '/user/register';
+      $rootScope.movieForm = movieAppAPI + '/movie';
+      $rootScope.directorForm = movieAppAPI + '/director';
 
-    // Set the current user if it isn't provided.
-    if (!$rootScope.user) {
-      Formio.currentUser().then(function(user) {
-        $rootScope.user = user;
-      });
-    }
-
-    // Ensure they are logged in.
-    $rootScope.$on('$stateChangeStart', function(event, toState) {
-      $rootScope.authenticated = !!Formio.getToken();
-      if (toState.name.substr(0, 4) === 'auth') { return; }
-      if(!$rootScope.authenticated) {
-        event.preventDefault();
-        $state.go('auth.login');
+      // Set the current user if it isn't provided.
+      if (!$rootScope.user) {
+        Formio.currentUser().then(function(user) {
+          $rootScope.user = user;
+        });
       }
-    });
 
-    // Provide a way to logout.
-    $rootScope.logout = function() {
-      Formio.logout().then(function() {
-        $state.go('auth.login');
+      // Ensure they are logged in.
+      $rootScope.$on('$stateChangeStart', function(event, toState) {
+        $rootScope.authenticated = !!Formio.getToken();
+        if (toState.name.substr(0, 4) === 'auth') { return; }
+        if(!$rootScope.authenticated) {
+          event.preventDefault();
+          $state.go('auth.login');
+        }
       });
-    };
 
-    // Determine if a state is active.
-    $rootScope.isActive = function(state) {
-      return $state.current.name.indexOf(state) !== -1;
-    };
-  }])
+      var authError = function() {
+        $state.go('home');
+      };
+
+      var logoutError = function() {
+        $state.go('auth.login');
+      };
+
+      $rootScope.$on('formio.sessionExpired', logoutError);
+      $rootScope.$on('formio.unauthorized', authError);
+
+      // Logout of form.io and go to login page.
+      $rootScope.logout = function() {
+        Formio.logout().then(function() {
+          $state.go('auth.login');
+        }).catch(logoutError);
+      };
+
+      // Determine if a state is active.
+      $rootScope.isActive = function(state) {
+        return $state.current.name.indexOf(state) !== -1;
+      };
+    }
+  ])
   .directive('youtube', function() {
     return {
       restrict: 'E',
