@@ -379,7 +379,7 @@ module.exports = function (grunt) {
             'styles/fonts/{,*/}*.*',
             'config.js',
             'config.template.js',
-            'template.json'
+            'project.json'
           ]
         }, {
           expand: true,
