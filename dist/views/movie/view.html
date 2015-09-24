@@ -1,0 +1,1 @@
+<h3>{{ movie.data.movieTitle }}</h3> <strong>Directed By: </strong> <ul><li ng-repeat="director in movie.data.director"><a ui-sref="director.view({directorId: director._id})">{{ director.data.name }}</a></li></ul> <youtube src="movie.data.video"></youtube>
