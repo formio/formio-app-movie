@@ -388,15 +388,16 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }, {
           expand: true,
-          cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-          dest: '<%= yeoman.dist %>'
-        }, {
-          expand: true,
           flatten: true,
           cwd: '.',
           src: 'bower_components/font-awesome/fonts/*',
           dest: '<%= yeoman.dist %>/fonts/'
+        }, {
+          expand: true,
+          flatten: true,
+          cwd: '.',
+          src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          dest: '<%= yeoman.dist %>/fonts/bootstrap/'
         }]
       },
       styles: {
@@ -433,18 +434,7 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
-    }
-
-    grunt.task.run([
-      'clean:server',
-      'wiredep',
-      'concurrent:server',
-      'autoprefixer:server',
-      'connect:livereload',
-      'watch'
-    ]);
+    grunt.task.run(['build', 'connect:dist:keepalive']);
   });
 
   grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
