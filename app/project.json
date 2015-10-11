@@ -6,7 +6,7 @@
     "administrator": {
       "title": "Administrator",
       "description": "The Administrator Role.",
-      "admin": false,
+      "admin": true,
       "default": false
     },
     "authenticated": {
