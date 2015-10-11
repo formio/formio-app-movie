@@ -1,6 +1,6 @@
 {
   "title": "MovieApp",
-  "description": "This is the movie application.",
+  "description": "The movie application.",
   "name": "movieapp",
   "roles": {
     "administrator": {
@@ -29,6 +29,139 @@
       "name": "userLoginForm",
       "path": "user/login",
       "components": [
+        {
+          "isNew": false,
+          "lockKey": true,
+          "validate": {
+            "required": true
+          },
+          "type": "email",
+          "persistent": true,
+          "unique": true,
+          "protected": false,
+          "defaultValue": "",
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Enter your email address",
+          "key": "user.email",
+          "label": "User Email",
+          "inputType": "email",
+          "tableView": true,
+          "input": true
+        },
+        {
+          "isNew": false,
+          "lockKey": true,
+          "validate": {
+            "required": true
+          },
+          "type": "password",
+          "persistent": true,
+          "protected": true,
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Enter your password",
+          "key": "user.password",
+          "label": "User Password",
+          "inputType": "password",
+          "tableView": false,
+          "input": true
+        },
+        {
+          "type": "button",
+          "theme": "primary",
+          "disableOnInvalid": true,
+          "action": "submit",
+          "block": false,
+          "rightIcon": "",
+          "leftIcon": "",
+          "size": "md",
+          "key": "submit",
+          "tableView": false,
+          "label": "Submit",
+          "input": true
+        }
+      ],
+      "access": [
+        {
+          "type": "read_all",
+          "roles": [
+            "administrator",
+            "authenticated",
+            "anonymous"
+          ]
+        }
+      ],
+      "submissionAccess": [
+        {
+          "type": "create_all",
+          "roles": []
+        },
+        {
+          "type": "read_all",
+          "roles": []
+        },
+        {
+          "type": "update_all",
+          "roles": []
+        },
+        {
+          "type": "delete_all",
+          "roles": []
+        },
+        {
+          "type": "create_own",
+          "roles": [
+            "anonymous"
+          ]
+        },
+        {
+          "type": "read_own",
+          "roles": []
+        },
+        {
+          "type": "update_own",
+          "roles": []
+        },
+        {
+          "type": "delete_own",
+          "roles": []
+        }
+      ]
+    },
+    "userRegistrationForm": {
+      "title": "User Registration Form",
+      "type": "form",
+      "name": "userRegistrationForm",
+      "path": "user/register",
+      "components": [
+        {
+          "input": true,
+          "tableView": true,
+          "inputType": "text",
+          "inputMask": "",
+          "label": "User Full Name",
+          "key": "user.fullName",
+          "placeholder": "Enter your full name",
+          "prefix": "",
+          "suffix": "",
+          "multiple": false,
+          "defaultValue": "",
+          "protected": false,
+          "unique": false,
+          "persistent": true,
+          "validate": {
+            "required": true,
+            "minLength": "",
+            "maxLength": "",
+            "pattern": "",
+            "custom": "",
+            "customPrivate": false
+          },
+          "type": "textfield",
+          "lockKey": true,
+          "isNew": false
+        },
         {
           "input": true,
           "tableView": true,
@@ -66,6 +199,24 @@
           },
           "lockKey": true,
           "isNew": false
+        },
+        {
+          "input": true,
+          "tableView": false,
+          "inputType": "password",
+          "label": "Verify Password",
+          "key": "verifyPassword",
+          "placeholder": "Verify your password",
+          "prefix": "",
+          "suffix": "",
+          "protected": true,
+          "persistent": true,
+          "type": "password",
+          "validate": {
+            "required": true,
+            "custom": "valid = (input == '{{ user.password }}') ? true : 'Passwords must match.';"
+          },
+          "customError": "Passwords must match."
         },
         {
           "input": true,
@@ -129,91 +280,42 @@
         }
       ]
     },
-    "userRegistrationForm": {
-      "title": "User Registration Form",
+    "adminLoginForm": {
+      "title": "Admin Login Form",
       "type": "form",
-      "name": "userRegistrationForm",
-      "path": "user/register",
+      "name": "adminLoginForm",
+      "path": "admin/login",
       "components": [
         {
           "isNew": false,
+          "source": "561aab9de2592eeaf4765cfc",
           "lockKey": true,
-          "type": "textfield",
-          "validate": {
-            "customPrivate": false,
-            "custom": "",
-            "pattern": "",
-            "maxLength": "",
-            "minLength": "",
-            "required": true
-          },
+          "type": "email",
           "persistent": true,
           "unique": false,
           "protected": false,
           "defaultValue": "",
-          "multiple": false,
           "suffix": "",
           "prefix": "",
-          "placeholder": "Enter your full name",
-          "key": "user.fullName",
-          "label": "User Full Name",
-          "inputMask": "",
-          "inputType": "text",
-          "tableView": true,
-          "input": true
-        },
-        {
-          "isNew": false,
-          "lockKey": true,
-          "validate": {
-            "required": true
-          },
-          "type": "email",
-          "persistent": true,
-          "unique": true,
-          "protected": false,
-          "defaultValue": "",
-          "suffix": "",
-          "prefix": "",
-          "placeholder": "Enter your email address",
-          "key": "user.email",
-          "label": "User Email",
+          "placeholder": "Enter the admin email address",
+          "key": "admin.email",
+          "label": "Admin Email",
           "inputType": "email",
           "tableView": true,
           "input": true
         },
         {
           "isNew": false,
+          "source": "561aab9de2592eeaf4765cfc",
           "lockKey": true,
-          "validate": {
-            "required": true
-          },
           "type": "password",
           "persistent": true,
           "protected": true,
           "suffix": "",
           "prefix": "",
-          "placeholder": "Enter your password",
-          "key": "user.password",
-          "label": "User Password",
-          "inputType": "password",
-          "tableView": false,
-          "input": true
-        },
-        {
-          "customError": "Passwords must match.",
-          "validate": {
-            "custom": "valid = (input == '{{ user.password }}') ? true : 'Passwords must match.';",
-            "required": true
-          },
-          "type": "password",
-          "persistent": true,
-          "protected": true,
-          "suffix": "",
-          "prefix": "",
-          "placeholder": "Verify your password",
-          "key": "verifyPassword",
-          "label": "Verify Password",
+          "placeholder": "Enter the admin password",
+          "key": "admin.password",
+          "label": "Admin Password",
           "inputType": "password",
           "tableView": false,
           "input": true
@@ -287,9 +389,9 @@
       "name": "role",
       "form": "user",
       "settings": {
-        "association": "new",
+        "role": "authenticated",
         "type": "add",
-        "role": "authenticated"
+        "association": "new"
       },
       "priority": 1,
       "method": [
@@ -304,9 +406,9 @@
       "name": "auth",
       "form": "userLoginForm",
       "settings": {
-        "association": "existing",
+        "password": "user.password",
         "username": "user.email",
-        "password": "user.password"
+        "association": "existing"
       },
       "priority": 0,
       "method": [
@@ -321,10 +423,45 @@
       "name": "auth",
       "form": "userRegistrationForm",
       "settings": {
-        "association": "new",
-        "username": "user.email",
+        "role": "authenticated",
         "password": "user.password",
-        "role": "authenticated"
+        "username": "user.email",
+        "association": "new"
+      },
+      "priority": 0,
+      "method": [
+        "create"
+      ],
+      "handler": [
+        "before"
+      ]
+    },
+    "action3": {
+      "title": "Role Assignment",
+      "name": "role",
+      "form": "admin",
+      "settings": {
+        "role": "administrator",
+        "type": "add",
+        "association": "new"
+      },
+      "priority": 1,
+      "method": [
+        "create"
+      ],
+      "handler": [
+        "after"
+      ]
+    },
+    "action4": {
+      "title": "Authentication",
+      "name": "auth",
+      "form": "adminLoginForm",
+      "settings": {
+        "password": "admin.password",
+        "username": "admin.email",
+        "role": "",
+        "association": "existing"
       },
       "priority": 0,
       "method": [
@@ -343,77 +480,77 @@
       "path": "user",
       "components": [
         {
-          "input": true,
-          "tableView": true,
-          "inputType": "text",
-          "inputMask": "",
-          "label": "Full Name",
-          "key": "fullName",
-          "placeholder": "Enter your full name",
-          "prefix": "",
-          "suffix": "",
-          "multiple": false,
-          "defaultValue": "",
-          "protected": false,
-          "unique": false,
-          "persistent": true,
+          "type": "textfield",
           "validate": {
-            "required": true,
-            "minLength": "",
-            "maxLength": "",
-            "pattern": "",
+            "customPrivate": false,
             "custom": "",
-            "customPrivate": false
+            "pattern": "",
+            "maxLength": "",
+            "minLength": "",
+            "required": true
           },
-          "type": "textfield"
-        },
-        {
-          "input": true,
-          "tableView": true,
-          "inputType": "email",
-          "label": "Email",
-          "key": "email",
-          "placeholder": "Enter your email address",
-          "prefix": "",
-          "suffix": "",
-          "defaultValue": "",
+          "persistent": true,
+          "unique": false,
           "protected": false,
-          "unique": true,
-          "persistent": true,
-          "type": "email",
-          "validate": {
-            "required": true
-          }
-        },
-        {
-          "input": true,
-          "tableView": false,
-          "inputType": "password",
-          "label": "Password",
-          "key": "password",
-          "placeholder": "Enter your password",
-          "prefix": "",
+          "defaultValue": "",
+          "multiple": false,
           "suffix": "",
-          "protected": true,
-          "persistent": true,
-          "type": "password",
-          "validate": {
-            "required": true
-          }
+          "prefix": "",
+          "placeholder": "Enter your full name",
+          "key": "fullName",
+          "label": "Full Name",
+          "inputMask": "",
+          "inputType": "text",
+          "tableView": true,
+          "input": true
         },
         {
-          "input": true,
-          "label": "Submit",
+          "validate": {
+            "required": true
+          },
+          "type": "email",
+          "persistent": true,
+          "unique": true,
+          "protected": false,
+          "defaultValue": "",
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Enter your email address",
+          "key": "email",
+          "label": "Email",
+          "inputType": "email",
+          "tableView": true,
+          "input": true
+        },
+        {
+          "validate": {
+            "required": true
+          },
+          "type": "password",
+          "persistent": true,
+          "protected": true,
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Enter your password",
+          "key": "password",
+          "label": "Password",
+          "inputType": "password",
           "tableView": false,
-          "key": "submit",
-          "size": "md",
-          "leftIcon": "",
-          "rightIcon": "",
-          "block": false,
-          "action": "submit",
-          "disableOnInvalid": true,
+          "input": true
+        },
+        {
+          "type": "button",
           "theme": "primary",
-          "type": "button"
+          "disableOnInvalid": true,
+          "action": "submit",
+          "block": false,
+          "rightIcon": "",
+          "leftIcon": "",
+          "size": "md",
+          "key": "submit",
+          "tableView": false,
+          "label": "Submit",
+          "input": true
         }
       ],
       "access": [
@@ -426,7 +563,40 @@
           ]
         }
       ],
-      "submissionAccess": []
+      "submissionAccess": [
+        {
+          "type": "create_all",
+          "roles": []
+        },
+        {
+          "type": "read_all",
+          "roles": []
+        },
+        {
+          "type": "update_all",
+          "roles": []
+        },
+        {
+          "type": "delete_all",
+          "roles": []
+        },
+        {
+          "type": "create_own",
+          "roles": []
+        },
+        {
+          "type": "read_own",
+          "roles": []
+        },
+        {
+          "type": "update_own",
+          "roles": []
+        },
+        {
+          "type": "delete_own",
+          "roles": []
+        }
+      ]
     },
     "director": {
       "title": "Director",
@@ -435,76 +605,76 @@
       "path": "director",
       "components": [
         {
-          "input": true,
-          "tableView": true,
-          "inputType": "text",
-          "inputMask": "",
-          "label": "Name",
-          "key": "name",
-          "placeholder": "The directors name",
-          "prefix": "",
-          "suffix": "",
-          "multiple": false,
-          "defaultValue": "",
-          "protected": false,
-          "unique": false,
-          "persistent": true,
+          "type": "textfield",
           "validate": {
-            "required": true,
-            "minLength": "",
-            "maxLength": "",
-            "pattern": "",
+            "customPrivate": false,
             "custom": "",
-            "customPrivate": false
+            "pattern": "",
+            "maxLength": "",
+            "minLength": "",
+            "required": true
           },
-          "type": "textfield"
-        },
-        {
-          "input": true,
-          "tableView": true,
-          "inputMask": "(999) 999-9999",
-          "label": "Phone Number",
-          "key": "phoneNumber",
-          "placeholder": "Enter the directors phone number",
-          "prefix": "",
+          "persistent": true,
+          "unique": false,
+          "protected": false,
+          "defaultValue": "",
+          "multiple": false,
           "suffix": "",
-          "multiple": false,
-          "protected": false,
-          "unique": false,
-          "persistent": true,
-          "validate": {
-            "required": false
-          },
-          "type": "phoneNumber"
-        },
-        {
-          "input": true,
+          "prefix": "",
+          "placeholder": "The directors name",
+          "key": "name",
+          "label": "Name",
+          "inputMask": "",
+          "inputType": "text",
           "tableView": true,
-          "label": "Address",
-          "key": "address",
-          "placeholder": "Enter the directors address",
-          "multiple": false,
-          "protected": false,
-          "unique": false,
-          "persistent": true,
+          "input": true
+        },
+        {
+          "type": "phoneNumber",
           "validate": {
             "required": false
           },
-          "type": "address"
+          "persistent": true,
+          "unique": false,
+          "protected": false,
+          "multiple": false,
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Enter the directors phone number",
+          "key": "phoneNumber",
+          "label": "Phone Number",
+          "inputMask": "(999) 999-9999",
+          "tableView": true,
+          "input": true
         },
         {
-          "input": true,
-          "label": "Submit",
-          "tableView": false,
-          "key": "submit",
-          "size": "md",
-          "leftIcon": "",
-          "rightIcon": "",
-          "block": false,
-          "action": "submit",
-          "disableOnInvalid": true,
+          "type": "address",
+          "validate": {
+            "required": false
+          },
+          "persistent": true,
+          "unique": false,
+          "protected": false,
+          "multiple": false,
+          "placeholder": "Enter the directors address",
+          "key": "address",
+          "label": "Address",
+          "tableView": true,
+          "input": true
+        },
+        {
+          "type": "button",
           "theme": "primary",
-          "type": "button"
+          "disableOnInvalid": true,
+          "action": "submit",
+          "block": false,
+          "rightIcon": "",
+          "leftIcon": "",
+          "size": "md",
+          "key": "submit",
+          "tableView": false,
+          "label": "Submit",
+          "input": true
         }
       ],
       "access": [
@@ -574,88 +744,88 @@
       "path": "movie",
       "components": [
         {
-          "input": true,
-          "tableView": true,
-          "inputType": "text",
-          "inputMask": "",
-          "label": "Title",
-          "key": "title",
+          "type": "textfield",
+          "validate": {
+            "customPrivate": false,
+            "custom": "",
+            "pattern": "",
+            "maxLength": "",
+            "minLength": "",
+            "required": true
+          },
+          "persistent": true,
+          "unique": false,
+          "protected": false,
+          "defaultValue": "",
+          "multiple": false,
+          "suffix": "",
+          "prefix": "",
           "placeholder": "Enter the movie title",
-          "prefix": "",
-          "suffix": "",
-          "multiple": false,
-          "defaultValue": "",
-          "protected": false,
-          "unique": false,
-          "persistent": true,
-          "validate": {
-            "required": true,
-            "minLength": "",
-            "maxLength": "",
-            "pattern": "",
-            "custom": "",
-            "customPrivate": false
-          },
-          "type": "textfield"
-        },
-        {
-          "input": true,
-          "tableView": true,
-          "inputType": "text",
+          "key": "title",
+          "label": "Title",
           "inputMask": "",
-          "label": "Video",
-          "key": "video",
-          "placeholder": "The YouTube embed url",
-          "prefix": "",
-          "suffix": "",
-          "multiple": false,
-          "defaultValue": "",
-          "protected": false,
-          "unique": false,
-          "persistent": true,
-          "validate": {
-            "required": true,
-            "minLength": "",
-            "maxLength": "",
-            "pattern": "",
-            "custom": "",
-            "customPrivate": false
-          },
-          "type": "textfield"
+          "inputType": "text",
+          "tableView": true,
+          "input": true
         },
         {
-          "input": true,
-          "tableView": true,
-          "label": "Director",
-          "key": "director",
-          "placeholder": "Select the directors",
-          "resource": "55f7448d81d033b96176ee0e",
+          "type": "textfield",
+          "validate": {
+            "customPrivate": false,
+            "custom": "",
+            "pattern": "",
+            "maxLength": "",
+            "minLength": "",
+            "required": true
+          },
+          "persistent": true,
+          "unique": false,
+          "protected": false,
           "defaultValue": "",
-          "template": "<span>{{ item.data.name }}</span>",
-          "selectFields": "",
-          "searchExpression": "",
-          "searchFields": "",
           "multiple": false,
-          "refresh": false,
-          "refreshDelay": 0,
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "The YouTube embed url",
+          "key": "video",
+          "label": "Video",
+          "inputMask": "",
+          "inputType": "text",
+          "tableView": true,
+          "input": true
+        },
+        {
+          "type": "resource",
           "validate": {
             "required": false
           },
-          "type": "resource"
+          "refreshDelay": 0,
+          "refresh": false,
+          "multiple": false,
+          "searchFields": "",
+          "searchExpression": "",
+          "selectFields": "",
+          "template": "<span>{{ item.data.name }}</span>",
+          "defaultValue": "",
+          "resource": "55f7448d81d033b96176ee0e",
+          "placeholder": "Select the directors",
+          "key": "director",
+          "label": "Director",
+          "tableView": true,
+          "input": true
         },
         {
-          "input": true,
-          "label": "Submit",
-          "tableView": false,
-          "key": "submit",
-          "size": "md",
-          "leftIcon": "",
-          "rightIcon": "",
-          "block": false,
-          "action": "submit",
-          "disableOnInvalid": true,
+          "type": "button",
           "theme": "primary",
-          "type": "button"
+          "disableOnInvalid": true,
+          "action": "submit",
+          "block": false,
+          "rightIcon": "",
+          "leftIcon": "",
+          "size": "md",
+          "key": "submit",
+          "tableView": false,
+          "label": "Submit",
+          "input": true
         }
       ],
       "access": [
@@ -710,6 +880,67 @@
           ]
         }
       ]
+    },
+    "admin": {
+      "title": "Admin",
+      "type": "resource",
+      "name": "admin",
+      "path": "admin",
+      "components": [
+        {
+          "type": "email",
+          "persistent": true,
+          "unique": false,
+          "protected": false,
+          "defaultValue": "",
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Enter the admin email address",
+          "key": "email",
+          "label": "Email",
+          "inputType": "email",
+          "tableView": true,
+          "input": true
+        },
+        {
+          "type": "password",
+          "persistent": true,
+          "protected": true,
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Enter the admin password",
+          "key": "password",
+          "label": "Password",
+          "inputType": "password",
+          "tableView": false,
+          "input": true
+        },
+        {
+          "type": "button",
+          "theme": "primary",
+          "disableOnInvalid": true,
+          "action": "submit",
+          "block": false,
+          "rightIcon": "",
+          "leftIcon": "",
+          "size": "md",
+          "key": "submit",
+          "tableView": false,
+          "label": "Submit",
+          "input": true
+        }
+      ],
+      "access": [
+        {
+          "type": "read_all",
+          "roles": [
+            "administrator",
+            "authenticated",
+            "anonymous"
+          ]
+        }
+      ],
+      "submissionAccess": []
     }
   }
 }
