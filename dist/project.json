@@ -2,6 +2,10 @@
   "title": "MovieApp",
   "description": "The movie application.",
   "name": "movieapp",
+  "preview": {
+    "url": "http://formio.github.io/formio-app-movie/dist",
+    "repo": "https://github.com/formio/formio-app-movie"
+  },
   "roles": {
     "administrator": {
       "title": "Administrator",
