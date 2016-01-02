@@ -10,7 +10,6 @@
  */
 angular
   .module('movieappApp', [
-    'ngAnimate',
     'ngSanitize',
     'ui.select',
     'ui.router',

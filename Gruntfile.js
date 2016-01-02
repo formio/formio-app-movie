@@ -85,6 +85,10 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
+              connect().use(
+                '/fonts',
+                connect.static('./bower_components/bootstrap-sass/assets/fonts')
+              ),
               connect.static(appConfig.app)
             ];
           }
@@ -396,7 +400,7 @@ module.exports = function (grunt) {
           expand: true,
           flatten: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          src: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>/fonts/bootstrap/'
         }]
       },
