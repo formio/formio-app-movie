@@ -26,7 +26,7 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/moment/moment.js',
       'bower_components/angular-moment/angular-moment.js',
-      'bower_components/ui-select/dist/select.js',
+      'bower_components/angular-ui-select/dist/select.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
       'bower_components/signature_pad/signature_pad.js',
