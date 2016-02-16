@@ -1,6 +1,7 @@
 {
   "title": "MovieApp",
   "description": "The movie application.",
+  "version": "1.0.0",
   "name": "movieapp",
   "preview": {
     "url": "http://formio.github.io/formio-app-movie/dist",
@@ -47,7 +48,7 @@
           "suffix": "",
           "prefix": "",
           "placeholder": "Enter your email address",
-          "key": "user.email",
+          "key": "email",
           "label": "User Email",
           "inputType": "email",
           "tableView": true,
@@ -65,7 +66,7 @@
           "suffix": "",
           "prefix": "",
           "placeholder": "Enter your password",
-          "key": "user.password",
+          "key": "password",
           "label": "User Password",
           "inputType": "password",
           "tableView": false,
@@ -145,7 +146,7 @@
           "inputType": "text",
           "inputMask": "",
           "label": "User Full Name",
-          "key": "user.fullName",
+          "key": "fullName",
           "placeholder": "Enter your full name",
           "prefix": "",
           "suffix": "",
@@ -171,7 +172,7 @@
           "tableView": true,
           "inputType": "email",
           "label": "User Email",
-          "key": "user.email",
+          "key": "email",
           "placeholder": "Enter your email address",
           "prefix": "",
           "suffix": "",
@@ -191,7 +192,7 @@
           "tableView": false,
           "inputType": "password",
           "label": "User Password",
-          "key": "user.password",
+          "key": "password",
           "placeholder": "Enter your password",
           "prefix": "",
           "suffix": "",
@@ -218,7 +219,7 @@
           "type": "password",
           "validate": {
             "required": true,
-            "custom": "valid = (input == '{{ user.password }}') ? true : 'Passwords must match.';"
+            "custom": "valid = (input == '{{ password }}') ? true : 'Passwords must match.';"
           },
           "customError": "Passwords must match."
         },
@@ -292,7 +293,6 @@
       "components": [
         {
           "isNew": false,
-          "source": "561aab9de2592eeaf4765cfc",
           "lockKey": true,
           "type": "email",
           "persistent": true,
@@ -302,7 +302,7 @@
           "suffix": "",
           "prefix": "",
           "placeholder": "Enter the admin email address",
-          "key": "admin.email",
+          "key": "email",
           "label": "Admin Email",
           "inputType": "email",
           "tableView": true,
@@ -310,7 +310,6 @@
         },
         {
           "isNew": false,
-          "source": "561aab9de2592eeaf4765cfc",
           "lockKey": true,
           "type": "password",
           "persistent": true,
@@ -318,7 +317,7 @@
           "suffix": "",
           "prefix": "",
           "placeholder": "Enter the admin password",
-          "key": "admin.password",
+          "key": "password",
           "label": "Admin Password",
           "inputType": "password",
           "tableView": false,
@@ -388,92 +387,114 @@
     }
   },
   "actions": {
-    "action0": {
-      "title": "Role Assignment",
+    "userLogin": {
+      "name": "login",
+      "title": "Login",
+      "form": "userLoginForm",
+      "priority": 2,
+      "method": ["create"],
+      "handler": ["before"],
+      "settings": {
+        "resources": ["user"],
+        "username": "email",
+        "password": "password"
+      }
+    },
+    "userLoginNoSubmit": {
+      "name": "nosubmit",
+      "title": "Skip Form Submission",
+      "form": "userLoginForm",
+      "priority": 0,
+      "handler": ["before"],
+      "method": ["create"],
+      "settings": {}
+    },
+    "userRegisterResource": {
+      "title": "Submit to another Resource",
+      "name": "resource",
+      "form": "userRegistrationForm",
+      "handler": ["before"],
+      "method": ["create"],
+      "priority": 10,
+      "settings": {
+        "resource": "user",
+        "role": "authenticated",
+        "fields": {
+          "fullName": "fullName",
+          "email": "email",
+          "password": "password"
+        }
+      }
+    },
+    "userRegisterLogin": {
+      "name": "login",
+      "title": "Login",
+      "form": "userRegistrationForm",
+      "priority": 2,
+      "method": ["create"],
+      "handler": ["before"],
+      "settings": {
+        "resources": ["user"],
+        "username": "email",
+        "password": "password"
+      }
+    },
+    "userRegisterNoSubmit": {
+      "name": "nosubmit",
+      "title": "Skip Form Submission",
+      "form": "userRegistrationForm",
+      "priority": 0,
+      "handler": ["before"],
+      "method": ["create"],
+      "settings": {}
+    },
+    "adminLogin": {
+      "name": "login",
+      "title": "Login",
+      "form": "adminLoginForm",
+      "priority": 2,
+      "method": ["create"],
+      "handler": ["before"],
+      "settings": {
+        "resources": ["admin"],
+        "username": "email",
+        "password": "password"
+      }
+    },
+    "adminLoginNoSubmit": {
+      "name": "nosubmit",
+      "title": "Skip Form Submission",
+      "form": "adminLoginForm",
+      "priority": 0,
+      "handler": ["before"],
+      "method": ["create"],
+      "settings": {}
+    },
+    "authenticatedRole": {
       "name": "role",
+      "title": "Role Assignment",
       "form": "user",
+      "priority": 1,
+      "handler": ["after"],
+      "method": ["create"],
       "settings": {
         "role": "authenticated",
         "type": "add",
         "association": "new"
-      },
-      "priority": 1,
-      "method": [
-        "create"
-      ],
-      "handler": [
-        "after"
-      ]
+      }
     },
-    "action1": {
-      "title": "Authentication",
-      "name": "auth",
-      "form": "userLoginForm",
-      "settings": {
-        "password": "user.password",
-        "username": "user.email",
-        "association": "existing"
-      },
-      "priority": 0,
-      "method": [
-        "create"
-      ],
-      "handler": [
-        "before"
-      ]
-    },
-    "action2": {
-      "title": "Authentication",
-      "name": "auth",
-      "form": "userRegistrationForm",
-      "settings": {
-        "role": "authenticated",
-        "password": "user.password",
-        "username": "user.email",
-        "association": "new"
-      },
-      "priority": 0,
-      "method": [
-        "create"
-      ],
-      "handler": [
-        "before"
-      ]
-    },
-    "action3": {
-      "title": "Role Assignment",
+    "adminRole": {
       "name": "role",
+      "title": "Role Assignment",
       "form": "admin",
+      "priority": 1,
+      "handler": ["after"],
+      "method": ["create"],
       "settings": {
         "role": "administrator",
         "type": "add",
         "association": "new"
-      },
-      "priority": 1,
-      "method": [
-        "create"
-      ],
-      "handler": [
-        "after"
-      ]
-    },
-    "action4": {
-      "title": "Authentication",
-      "name": "auth",
-      "form": "adminLoginForm",
-      "settings": {
-        "password": "admin.password",
-        "username": "admin.email",
-        "role": "",
-        "association": "existing"
-      },
-      "priority": 0,
-      "method": [
-        "create"
-      ],
-      "handler": [
-        "before"
-      ]
+      }
     }
   },
   "resources": {
