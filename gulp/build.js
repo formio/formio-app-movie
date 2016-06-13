@@ -105,8 +105,15 @@ gulp.task('config', function() {
 
 gulp.task('views', function() {
   return gulp.src([
-    path.join(conf.paths.src, '/views/**/*')
+    path.join(conf.paths.src, '/views/**/*'),
+    path.join(conf.paths.src, '/app/resources/**/*.html')
   ]).pipe(gulp.dest(path.join(conf.paths.dist, '/views/')));
+});
+
+gulp.task('resource-views', function() {
+  return gulp.src([
+    path.join(conf.paths.src, '/app/resources/**/*.html')
+  ]).pipe(gulp.dest(path.join(conf.paths.dist, '/app/resources/')));
 });
 
 gulp.task('clean', function (done) {
@@ -117,4 +124,4 @@ gulp.task('clean', function (done) {
   ], done);
 });
 
-gulp.task('build', ['html', 'fonts', 'other', 'ui-grid-fonts', 'views', 'config']);
+gulp.task('build', ['html', 'fonts', 'other', 'ui-grid-fonts', 'views', 'resource-views', 'config']);
