@@ -1,0 +1,9 @@
+aws.json
+.DS_Store
+node_modules/
+bower_components/
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+app/
