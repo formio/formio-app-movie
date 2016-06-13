@@ -19,7 +19,7 @@ gulp.task('partials', function () {
       quotes: true
     }))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
-      module: 'formioAppBasic',
+      module: 'formioAppMovie',
       root: 'app'
     }))
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
@@ -110,12 +110,6 @@ gulp.task('views', function() {
   ]).pipe(gulp.dest(path.join(conf.paths.dist, '/views/')));
 });
 
-gulp.task('resource-views', function() {
-  return gulp.src([
-    path.join(conf.paths.src, '/app/resources/**/*.html')
-  ]).pipe(gulp.dest(path.join(conf.paths.dist, '/app/resources/')));
-});
-
 gulp.task('clean', function (done) {
   $.del([
     path.join(conf.paths.dist, '/'),
@@ -124,4 +118,4 @@ gulp.task('clean', function (done) {
   ], done);
 });
 
-gulp.task('build', ['html', 'fonts', 'other', 'ui-grid-fonts', 'views', 'resource-views', 'config']);
+gulp.task('build', ['html', 'fonts', 'other', 'ui-grid-fonts', 'views', 'config']);

@@ -1,5 +1,5 @@
 {
-  "name": "formioAppBasic",
+  "name": "formioAppMovie",
   "version": "0.0.0",
   "dependencies": {
     "angular-sanitize": "^1.5.6",
