@@ -1,0 +1,11 @@
+<h3>{{ playlist.resource.data.title }}</h3>
+<div class="row">
+  <div class="col-xs-6 col-md-3" ng-repeat="movie in movies">
+    <a ui-sref="playlist.movie.view({movieId: movie._id})" class="thumbnail">
+      <img ng-src="http://img.youtube.com/vi/{{ movie.data.youtubeId }}/0.jpg" alt="{{ movie.data.title }}">
+    </a>
+  </div>
+</div>
+<bgf-pagination collection="movies" url="moviesUrl" url-params="moviesQuery" per-page="moviesPerPage" auto-presets="false"></bgf-pagination>
+<a ui-sref="{{ baseName }}Create()" class="btn btn-primary" ng-if="isReady && hasAccess(currentResource.name, 'create_own')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New {{ currentResource.name | capitalize }}</a>
+

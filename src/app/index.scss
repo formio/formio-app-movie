@@ -1,0 +1,40 @@
+@import "bower_components/bootswatch/cosmo/_variables.scss";
+@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "bower_components/bootswatch/cosmo/_bootswatch.scss";
+@import "bower_components/font-awesome/scss/font-awesome.scss";
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.navbar-brand {
+  .logo-img {
+    display: inline-block;
+    height: 1em;
+  }
+}
+
+#main {
+  margin-bottom: 20px;
+}
+
+#content {
+  margin-top: 60px;
+}
+
+#footer {
+  min-height: 200px;
+  padding: 20px;
+  text-align: center;
+  background-color: #eee;
+}
+
+/**
+ *  Do not remove the comments below. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+// injector
+// endinjector

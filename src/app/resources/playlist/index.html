@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-xs-6 col-md-3" ng-repeat="playlist in playlists">
+    <a ui-sref="playlist.movieIndex({playlistId: playlist._id})" class="thumbnail">
+      <img ng-src="http://img.youtube.com/vi/{{ playlist.data.latestMovie }}/0.jpg" alt="{{ playlist.data.title }}">
+      <div class="caption">
+        <h3>{{ playlist.data.title }}</h3>
+        <p>{{ playlist.data.description }}</p>
+      </div>
+    </a>
+  </div>
+</div>
+<bgf-pagination collection="playlists" url="playlistUrl" per-page="4" auto-presets="false"></bgf-pagination>
+<a ui-sref="{{ baseName }}Create()" class="btn btn-primary" ng-if="isReady && hasAccess(currentResource.name, 'create_own')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New {{ currentResource.name | capitalize }}</a>
