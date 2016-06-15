@@ -6,6 +6,6 @@
     </a>
   </div>
 </div>
-<bgf-pagination collection="movies" url="moviesUrl" url-params="moviesQuery" per-page="moviesPerPage" auto-presets="false"></bgf-pagination>
+<bgf-pagination collection="movies" url="moviesUrl" url-params="moviesQuery" per-page="moviesPerPage" auto-presets="moviesAutoPresets"></bgf-pagination>
 <a ui-sref="{{ baseName }}Create()" class="btn btn-primary" ng-if="isReady && hasAccess(currentResource.name, 'create_own')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New {{ currentResource.name | capitalize }}</a>
 

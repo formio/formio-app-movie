@@ -17,6 +17,8 @@ angular.module('formioAppMovie')
             AppConfig
           ) {
             $scope.playlists = [];
+            $scope.playlistAutoPresets = false;
+            $scope.playlistPerPage = 4;
             $scope.playlistUrl = AppConfig.resources.playlist.form + '/submission';
           }
         ],

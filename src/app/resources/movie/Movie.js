@@ -26,8 +26,8 @@ angular.module('formioAppMovie')
           ) {
             $scope.movies = [];
             $scope.moviesUrl = AppConfig.resources.movie.form + '/submission';
-            $scope.perPagePresets = [16];
-            $scope.moviesPerPage = 16;
+            $scope.moviesAutoPresets = false;
+            $scope.moviesPerPage = 8;
             $scope.moviesQuery = {
               'data.playlist._id': $stateParams.playlistId
             };

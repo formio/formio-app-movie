@@ -9,5 +9,5 @@
     </a>
   </div>
 </div>
-<bgf-pagination collection="playlists" url="playlistUrl" per-page="4" auto-presets="false"></bgf-pagination>
+<bgf-pagination collection="playlists" url="playlistUrl" per-page="playlistPerPage" auto-presets="playlistAutoPresets"></bgf-pagination>
 <a ui-sref="{{ baseName }}Create()" class="btn btn-primary" ng-if="isReady && hasAccess(currentResource.name, 'create_own')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New {{ currentResource.name | capitalize }}</a>
